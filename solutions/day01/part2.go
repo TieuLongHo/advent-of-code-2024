@@ -1,15 +1,13 @@
 package day01
 
 import (
-	"advent-of-code/utils"
 	"bufio"
 	"fmt"
 	"strconv"
 	"strings"
 )
 
-func Part2() int {
-	input := utils.ReadFile("input/day01.txt")
+func Part2(input string) int {
 	scanner := bufio.NewScanner(strings.NewReader(input))
 
 	slice1 := make([]int, 0)
