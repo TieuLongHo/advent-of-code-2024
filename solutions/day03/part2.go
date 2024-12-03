@@ -36,24 +36,30 @@ func parseDoFunction(input []string, index int) (do, newIndex int) {
 	isDoFunc := false
 
 	for i, e := range DONT_PATTERN {
+		switch input[index] {
 		// case: don't()
-		if input[index] == e && !isDoFunc {
-			index++
-			if len(DONT_PATTERN)-1 == i {
-				return 2, index
+		case e:
+			if !isDoFunc {
+				index++
+				if len(DONT_PATTERN)-1 == i {
+					return 2, index
+				}
+				continue
 			}
-			continue
-			// case: do()
-		} else if input[index] == DO_PATTERN[i] {
+
+		// case: do()
+		case DO_PATTERN[i]:
 			index++
 			isDoFunc = true
 			if len(DO_PATTERN)-1 == i {
 				return 1, index
 			}
 			continue
-		}
+
 		// case: mismatch
-		return 0, index
+		default:
+			return 0, index
+		}
 	}
 	// case: incomplete function
 	return 0, index

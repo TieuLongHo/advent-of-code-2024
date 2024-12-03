@@ -33,11 +33,8 @@ func Part1(input string) int {
 }
 
 func parseFunction(input []string, index int, isPart2 bool) int {
-	var paramX int
-	var paramXAssigned bool
-	var paramY int
-	var paramYAssigned bool
-	var sum int
+	var paramX, paramY, sum int
+	var paramXAssigned, paramYAssigned bool
 	var err error
 
 	for i, e := range PATTERN {
@@ -46,8 +43,8 @@ func parseFunction(input []string, index int, isPart2 bool) int {
 		}
 
 		if isPart2 {
-
-			if input[index] == "d" {
+			switch {
+			case input[index] == "d":
 				do, newIndex := parseDoFunction(input, index)
 				switch do {
 				case 1:
@@ -56,23 +53,25 @@ func parseFunction(input []string, index int, isPart2 bool) int {
 					isDo = false
 				}
 				return sum + parseFunction(input, newIndex, isPart2)
-			}
 
-			if !isDo {
+			case !isDo:
 				index++
 				return sum + parseFunction(input, index, isPart2)
 			}
 		}
 
-		//case: X and Y handling
-		if e == "X" {
+		switch e {
+		//case: X parameter handling
+		case "X":
 			paramX, index, err = parseParameter(input, index)
 			if err != nil {
 				return sum + parseFunction(input, index, isPart2)
 			}
 			paramXAssigned = true
 			continue
-		} else if e == "Y" {
+
+		//case: Y parameter handling
+		case "Y":
 			paramY, index, err = parseParameter(input, index)
 			if err != nil {
 
@@ -80,23 +79,26 @@ func parseFunction(input []string, index int, isPart2 bool) int {
 			}
 			paramYAssigned = true
 			continue
-		}
 
 		//case: closing parentheses
-		if e == ")" && input[index] == ")" {
-			if paramXAssigned && paramYAssigned {
-				sum += paramX * paramY
-			}
-			return sum + parseFunction(input, index+1, isPart2)
-		}
-		//case: mismatch symbol
-		if e != input[index] {
-			if i == 0 {
+		case ")":
+			if input[index] == ")" {
+				if paramXAssigned && paramYAssigned {
+					sum += paramX * paramY
+				}
 				return sum + parseFunction(input, index+1, isPart2)
 			}
-			return sum + parseFunction(input, index, isPart2)
-		}
 
+		//case: mismatch symbol
+		default:
+			if e != input[index] {
+				if i == 0 {
+					return sum + parseFunction(input, index+1, isPart2)
+				}
+				return sum + parseFunction(input, index, isPart2)
+
+			}
+		}
 		index++
 	}
 
