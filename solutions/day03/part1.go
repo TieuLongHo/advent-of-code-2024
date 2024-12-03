@@ -11,6 +11,8 @@ import (
 var TOKEN = []string{"0", "1", "2", "3", "4", "5", "6", "7", "8", "9"}
 var PATTERN = [8]string{"m", "u", "l", "(", "X", ",", "Y", ")"}
 
+var isDo = true
+
 const MAX_PARAM_LEN = 3
 
 func Part1(input string) int {
@@ -20,7 +22,7 @@ func Part1(input string) int {
 	for scanner.Scan() {
 		stringSlice := strings.Split(scanner.Text(), "")
 
-		score += parseFunction(stringSlice, 0)
+		score += parseFunction(stringSlice, 0, false)
 
 	}
 	if err := scanner.Err(); err != nil {
@@ -30,7 +32,7 @@ func Part1(input string) int {
 	return score
 }
 
-func parseFunction(input []string, index int) int {
+func parseFunction(input []string, index int, isPart2 bool) int {
 	var paramX int
 	var paramXAssigned bool
 	var paramY int
@@ -38,16 +40,35 @@ func parseFunction(input []string, index int) int {
 	var sum int
 	var err error
 
-	for _, e := range PATTERN {
+	for i, e := range PATTERN {
 		if index == len(input) {
 			return sum
+		}
+
+		if isPart2 {
+
+			if input[index] == "d" {
+				do, newIndex := parseDoFunction(input, index)
+				switch do {
+				case 1:
+					isDo = true
+				case 2:
+					isDo = false
+				}
+				return sum + parseFunction(input, newIndex, isPart2)
+			}
+
+			if !isDo {
+				index++
+				return sum + parseFunction(input, index, isPart2)
+			}
 		}
 
 		//case: X and Y handling
 		if e == "X" {
 			paramX, index, err = parseParameter(input, index)
 			if err != nil {
-				return sum + parseFunction(input, index)
+				return sum + parseFunction(input, index, isPart2)
 			}
 			paramXAssigned = true
 			continue
@@ -55,7 +76,7 @@ func parseFunction(input []string, index int) int {
 			paramY, index, err = parseParameter(input, index)
 			if err != nil {
 
-				return sum + parseFunction(input, index)
+				return sum + parseFunction(input, index, isPart2)
 			}
 			paramYAssigned = true
 			continue
@@ -66,17 +87,20 @@ func parseFunction(input []string, index int) int {
 			if paramXAssigned && paramYAssigned {
 				sum += paramX * paramY
 			}
-			return sum + parseFunction(input, index+1)
+			return sum + parseFunction(input, index+1, isPart2)
 		}
 		//case: mismatch symbol
 		if e != input[index] {
-			return sum + parseFunction(input, index+1)
+			if i == 0 {
+				return sum + parseFunction(input, index+1, isPart2)
+			}
+			return sum + parseFunction(input, index, isPart2)
 		}
 
 		index++
 	}
 
-	return sum + parseFunction(input, index+1)
+	return sum + parseFunction(input, index+1, isPart2)
 }
 
 func parseParameter(input []string, index int) (parameter, newIndex int, err error) {
