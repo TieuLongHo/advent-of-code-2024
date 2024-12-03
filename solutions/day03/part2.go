@@ -27,7 +27,6 @@ func Part2(input string) int {
 
 // returns
 //
-//	input: Puzzle input
 //	0 -> mismatch,
 //	1 -> do(),
 //	2 -> don't()
