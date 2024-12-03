@@ -1,6 +1,6 @@
 # Advent of Code 2024
 
-This is my implementation of the Advent of Code 2024 challenges in Golang. The Goal this year is to focus on clean code and good practices rather than efficiency.
+This is my implementation of the Advent of Code 2024 challenges in Golang. The goal this year is to focus on clean code and good practices rather than efficiency, while also getting comfortable with the language. By emphasizing maintainability and readability, I aim to improve my understanding of Go’s idioms and best practices.
 
 ## Progress
 
