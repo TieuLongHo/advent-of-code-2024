@@ -21,27 +21,14 @@ func Part2(input string) int {
 		fmt.Println("Error reading input:", err)
 		return 0
 	}
+	findA(grid, ch, &wg)
 
-	count := 0
-	rows := len(grid)
-	if rows == 0 {
-		return 0
-	}
-	cols := len(grid[0])
-
-	for i := 1; i < rows-1; i++ {
-		for j := 1; j < cols-1; j++ {
-			if grid[i][j] == 'A' {
-				wg.Add(1)
-				go isValidXMAS(grid, i, j, ch, &wg)
-			}
-		}
-	}
 	go func() {
 		wg.Wait()
 		close(ch)
 	}()
 
+	count := 0
 	for e := range ch {
 		if e {
 			count++
@@ -49,6 +36,23 @@ func Part2(input string) int {
 	}
 
 	return count
+}
+
+func findA(grid [][]byte, ch chan<- bool, wg *sync.WaitGroup) {
+	rows := len(grid)
+	if rows == 0 {
+		return
+	}
+	cols := len(grid[0])
+
+	for i := 1; i < rows-1; i++ {
+		for j := 1; j < cols-1; j++ {
+			if grid[i][j] == 'A' {
+				wg.Add(1)
+				go isValidXMAS(grid, i, j, ch, wg)
+			}
+		}
+	}
 }
 
 func isValidXMAS(grid [][]byte, i, j int, ch chan<- bool, wg *sync.WaitGroup) {

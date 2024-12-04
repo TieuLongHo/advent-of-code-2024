@@ -2,6 +2,7 @@ package day04
 
 import (
 	"bufio"
+	"fmt"
 	"strings"
 	"sync"
 )
@@ -18,6 +19,10 @@ func Part1(input string) int {
 
 	for scanner.Scan() {
 		inputMatrix = append(inputMatrix, []byte(scanner.Text()))
+	}
+	if err := scanner.Err(); err != nil {
+		fmt.Println("Error reading input:", err)
+		return 0
 	}
 
 	findXmas(inputMatrix, ch, &wg)
