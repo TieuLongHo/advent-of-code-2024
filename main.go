@@ -8,36 +8,34 @@ import (
 	"advent-of-code/solutions/day05"
 	"advent-of-code/utils"
 	"fmt"
+	"strings"
+	"time"
 )
 
 func main() {
-	input := utils.ReadFile("input/day01.txt")
-	fmt.Println("Day 1:")
-	fmt.Println("\tPart 1:", day01.Part1(input))
-	fmt.Println("\tPart 2:", day01.Part2(input))
-	fmt.Println()
 
-	input = utils.ReadFile("input/day02.txt")
-	fmt.Println("Day 2:")
-	fmt.Println("\tPart 1:", day02.Part1(input))
-	fmt.Println("\tPart 2:", day02.Part2(input))
-	fmt.Println()
+	runDay("Day01", day01.Part1, day01.Part2)
+	runDay("Day02", day02.Part1, day02.Part2)
+	runDay("Day03", day03.Part1, day03.Part2)
+	runDay("Day04", day04.Part1, day04.Part2)
+	runDay("Day05", day05.Part1, day05.Part2)
 
-	input = utils.ReadFile("input/day03.txt")
-	fmt.Println("Day 3:")
-	fmt.Println("\tPart 1:", day03.Part1(input))
-	fmt.Println("\tPart 2:", day03.Part2(input))
-	fmt.Println()
+}
 
-	input = utils.ReadFile("input/day04.txt")
-	fmt.Println("Day 4:")
-	fmt.Println("\tPart 1:", day04.Part1(input))
-	fmt.Println("\tPart 2:", day04.Part2(input))
-	fmt.Println()
+func runDay(fnName string, fn1 func(input string) int, fn2 func(input string) int) {
+	fileName := fmt.Sprintf("input/%s.txt", strings.ToLower(fnName))
+	input := utils.ReadFile(fileName)
 
-	input = utils.ReadFile("input/day05.txt")
-	fmt.Println("Day 5:")
-	fmt.Println("\tPart 1:", day05.Part1(input))
-	fmt.Println("\tPart 2:", day05.Part2(input))
-	fmt.Println()
+	fmt.Printf("\n%s:\n", fnName)
+
+	executePart("Part 1", fn1, input)
+	executePart("Part 2", fn2, input)
+}
+
+func executePart(partName string, fn func(input string) int, input string) {
+	startTime := time.Now()
+	result := fn(input)
+	elapsedTime := time.Since(startTime)
+
+	fmt.Printf("\t%s:\t%v (Execution time: %s)\n", partName, result, elapsedTime)
 }
