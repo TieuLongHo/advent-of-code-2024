@@ -1,4 +1,4 @@
-package dayXY
+package day06
 
 import (
 	"advent-of-code/utils"
@@ -6,7 +6,7 @@ import (
 )
 
 func TestPart1(t *testing.T) {
-	input := utils.ReadFile("../../test_input/dayXY_test.txt")
+	input := utils.ReadFile("../../test_input/day06_test.txt")
 	result := Part1(input)
 	expected := 0
 

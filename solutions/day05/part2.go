@@ -26,7 +26,7 @@ func Part2(input string) int {
 	}
 
 	if err := scanner.Err(); err != nil {
-		fmt.Printf("error occurred: %v\n", err)
+		fmt.Println("Error reading input:", err)
 	}
 
 	return score

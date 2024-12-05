@@ -1,4 +1,4 @@
-package dayXY
+package day06
 
 import (
 	"bufio"
@@ -6,7 +6,7 @@ import (
 	"strings"
 )
 
-func Part1(input string) int {
+func Part2(input string) int {
 	scanner := bufio.NewScanner(strings.NewReader(input))
 
 	for scanner.Scan() {
