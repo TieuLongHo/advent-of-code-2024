@@ -4,6 +4,7 @@ import (
 	"bufio"
 	"fmt"
 	"slices"
+	"sort"
 	"strconv"
 	"strings"
 )
@@ -41,7 +42,11 @@ func checkLine(line string, greaterPairs [][2]int, isPart2 bool) int {
 	}
 	if !isSorted(intSlice, greaterPairs) {
 		if isPart2 {
-			return sort(intSlice, greaterPairs)[len(intSlice)/2]
+			sort.Slice(intSlice, func(i, j int) bool {
+				return slices.Contains(greaterPairs, [2]int{intSlice[i], intSlice[j]})
+			})
+			return intSlice[len(intSlice)/2]
+			// return sort(intSlice, greaterPairs)[len(intSlice)/2]
 		}
 		return 0
 

@@ -1,10 +1,6 @@
 package main
 
 import (
-	"advent-of-code/solutions/day01"
-	"advent-of-code/solutions/day02"
-	"advent-of-code/solutions/day03"
-	"advent-of-code/solutions/day04"
 	"advent-of-code/solutions/day05"
 	"advent-of-code/utils"
 	"fmt"
@@ -14,12 +10,12 @@ import (
 
 func main() {
 
-	runDay("Day01", day01.Part1, day01.Part2)
-	runDay("Day02", day02.Part1, day02.Part2)
-	runDay("Day03", day03.Part1, day03.Part2)
-	runDay("Day04", day04.Part1, day04.Part2)
+	// runDay("Day01", day01.Part1, day01.Part2)
+	// runDay("Day02", day02.Part1, day02.Part2)
+	// runDay("Day03", day03.Part1, day03.Part2)
+	// runDay("Day04", day04.Part1, day04.Part2)
 	runDay("Day05", day05.Part1, day05.Part2)
-
+	// runDay("Day06", day06.Part1, day06.Part2)
 }
 
 func runDay(fnName string, fn1 func(input string) int, fn2 func(input string) int) {
