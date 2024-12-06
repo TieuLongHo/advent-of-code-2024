@@ -40,7 +40,10 @@ func checkLine(line string, greaterPairs [][2]int, isPart2 bool) int {
 	if err != nil {
 		return 0
 	}
-	if !isSorted(intSlice, greaterPairs) {
+	isSorted := sort.SliceIsSorted(intSlice, func(i, j int) bool {
+		return slices.Contains(greaterPairs, [2]int{intSlice[i], intSlice[j]})
+	})
+	if !isSorted {
 		if isPart2 {
 			sort.Slice(intSlice, func(i, j int) bool {
 				return slices.Contains(greaterPairs, [2]int{intSlice[i], intSlice[j]})
@@ -77,13 +80,13 @@ func splitAndAppend(line string, slice *[][2]int) {
 	*slice = append(*slice, [2]int{firstPart, secondPart})
 }
 
-func isSorted(slice []int, greaterPairs [][2]int) bool {
-	for i := 0; i < len(slice)-1; i++ {
-		for j := i + 1; j < len(slice); j++ {
-			if slices.Contains(greaterPairs, [2]int{slice[j], slice[i]}) {
-				return false
-			}
-		}
-	}
-	return true
-}
+// func isSorted(slice []int, greaterPairs [][2]int) bool {
+// 	for i := 0; i < len(slice)-1; i++ {
+// 		for j := i + 1; j < len(slice); j++ {
+// 			if slices.Contains(greaterPairs, [2]int{slice[j], slice[i]}) {
+// 				return false
+// 			}
+// 		}
+// 	}
+// 	return true
+// }
