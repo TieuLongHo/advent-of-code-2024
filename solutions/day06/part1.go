@@ -7,8 +7,8 @@ import (
 )
 
 func Part1(input string) int {
-	visited, _, _, _, _ := helper(input)
-	return visited
+	visitedCount, _, _, _, _ := helper(input)
+	return visitedCount
 }
 func helper(input string) (visitedCount, newIStart, newJStart int, originalMatrix [][]byte, visitedPlaces map[[2]int]bool) {
 	scanner := bufio.NewScanner(strings.NewReader(input))
