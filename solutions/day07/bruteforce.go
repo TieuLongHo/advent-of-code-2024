@@ -48,12 +48,9 @@ func fixEquation(lhs int, rhs []int, ch chan<- int, wg *sync.WaitGroup, isPart2 
 		binary := fmt.Sprintf("%0*b", len(rhs), i)
 		var result int = rhs[0]
 		for j := 1; j < len(rhs); j++ {
-			switch binary[j] {
-			case '0':
-				result = mul(result, rhs[j])
-			case '1':
-				result = add(result, rhs[j])
-			}
+			opIndex, _ := strconv.Atoi(string(binary[j]))
+			result = operators[opIndex](result, rhs[j])
+
 			if result > lhs {
 				break
 			}
@@ -63,7 +60,6 @@ func fixEquation(lhs int, rhs []int, ch chan<- int, wg *sync.WaitGroup, isPart2 
 			}
 		}
 	}
-
 	if isPart2 {
 		wg.Add(1)
 		tryConcat(lhs, rhs, ch, wg)
@@ -80,15 +76,8 @@ func tryConcat(lhs int, rhs []int, ch chan<- int, wg *sync.WaitGroup) {
 		}
 		var result int = rhs[0]
 		for j := 1; j < len(rhs); j++ {
-			switch base3[j] {
-			case '0':
-				result = concat(result, rhs[j])
-			case '1':
-				result = mul(result, rhs[j])
-			case '2':
-				result = add(result, rhs[j])
-			}
-
+			opIndex, _ := strconv.Atoi(string(base3[j]))
+			result = operators[opIndex](result, rhs[j])
 			if result > lhs {
 				break
 
@@ -99,21 +88,6 @@ func tryConcat(lhs int, rhs []int, ch chan<- int, wg *sync.WaitGroup) {
 			}
 		}
 	}
-}
-
-func add(a, b int) int {
-	return a + b
-}
-func mul(a, b int) int {
-	return a * b
-}
-func concat(a, b int) int {
-	newNum, err := strconv.Atoi(strconv.Itoa(a) + strconv.Itoa(b))
-	if err != nil {
-		fmt.Printf("Error converting to integer: %v\n", err)
-		return 0
-	}
-	return newNum
 }
 
 func convertStringToInt(strSlice []string) (newIntSlice []int, err error) {
