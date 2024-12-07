@@ -7,6 +7,7 @@ import (
 	"advent-of-code/solutions/day04"
 	"advent-of-code/solutions/day05"
 	"advent-of-code/solutions/day06"
+	"advent-of-code/solutions/day07"
 	"advent-of-code/utils"
 	"fmt"
 	"strings"
@@ -21,6 +22,9 @@ func main() {
 	runDay("Day04", day04.Part1, day04.Part2)
 	runDay("Day05", day05.Part1, day05.Part2)
 	runDay("Day06", day06.Part1, day06.Part2)
+	runDay("Day07", day07.Part1, day07.Part2)
+
+	runAltSolution("Day07", "Recursive", day07.Part1Recursive, day07.Part2Recursive)
 }
 
 func runDay(fnName string, fn1 func(input string) int, fn2 func(input string) int) {
@@ -29,6 +33,15 @@ func runDay(fnName string, fn1 func(input string) int, fn2 func(input string) in
 
 	fmt.Printf("\n%s:\n", fnName)
 
+	executePart("Part 1", fn1, input)
+	executePart("Part 2", fn2, input)
+}
+
+func runAltSolution(fnName string, altName string, fn1 func(input string) int, fn2 func(input string) int) {
+	fileName := fmt.Sprintf("input/%s.txt", strings.ToLower(fnName))
+	input := utils.ReadFile(fileName)
+
+	fmt.Printf("%s:\n", altName)
 	executePart("Part 1", fn1, input)
 	executePart("Part 2", fn2, input)
 }
