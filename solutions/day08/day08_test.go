@@ -8,19 +8,19 @@ import (
 func TestPart1(t *testing.T) {
 	input := utils.ReadFile("../../test_input/day08_test.txt")
 	result := Part1(input)
-	expected := 0
+	expected := 14
 
 	if result != expected {
 		t.Errorf("Expected %d, got %d", expected, result)
 	}
 }
 
-// func TestPart2(t *testing.T) {
-// 	input := utils.ReadFile("../../test_input/dayXY_part2_test.txt")
-// 	result := Part2(input)
-// 	expected := 0
+func TestPart2(t *testing.T) {
+	input := utils.ReadFile("../../test_input/day08_test.txt")
+	result := Part2(input)
+	expected := 34
 
-// 	if result != expected {
-// 		t.Errorf("Expected %d, got %d", expected, result)
-// 	}
-// }
+	if result != expected {
+		t.Errorf("Expected %d, got %d", expected, result)
+	}
+}

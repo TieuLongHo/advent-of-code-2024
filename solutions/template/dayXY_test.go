@@ -16,7 +16,7 @@ func TestPart1(t *testing.T) {
 }
 
 // func TestPart2(t *testing.T) {
-// 	input := utils.ReadFile("../../test_input/dayXY_part2_test.txt")
+// 	input := utils.ReadFile("../../test_input/dayXY_test.txt")
 // 	result := Part2(input)
 // 	expected := 0
 
