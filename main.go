@@ -10,6 +10,7 @@ import (
 	"advent-of-code/solutions/day07"
 	"advent-of-code/solutions/day08"
 	"advent-of-code/solutions/day09"
+	"advent-of-code/solutions/day10"
 	"advent-of-code/utils"
 	"fmt"
 	"strings"
@@ -17,7 +18,6 @@ import (
 )
 
 func main() {
-
 	runDay("Day01", day01.Part1, day01.Part2)
 	runDay("Day02", day02.Part1, day02.Part2)
 	runDay("Day03", day03.Part1, day03.Part2)
@@ -28,6 +28,7 @@ func main() {
 	runAltSolution("Day07", "Recursive", day07.Part1Recursive, day07.Part2Recursive)
 	runDay("Day08", day08.Part1, day08.Part2)
 	runDay("Day09", day09.Part1, day09.Part2)
+	runDay("Day10", day10.Part1, day10.Part2)
 }
 
 func runDay(fnName string, fn1 func(input string) int, fn2 func(input string) int) {
